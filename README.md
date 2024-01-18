@@ -26,3 +26,9 @@ Then
 And copy the contents of `db/migrations/createUserTable.sql`
 
 I will automate process this soon.
+
+## Resources
+
+My backend knowledge and Go knowledge are both fairly limited. So my goal is to use tutorials to help me figure this out and then mostly rewrite the project when I have a somewhat better idea what I'm doing (hopefully pretty much immediately after follow the tutorials). I will post helpful resources I find here:
+
+[Current tutorial](https://www.youtube.com/watch?v=W9SuX9c40s8)
