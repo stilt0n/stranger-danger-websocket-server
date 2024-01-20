@@ -4,6 +4,7 @@ import (
 	"log"
 	"stranger-danger/db"
 	"stranger-danger/internal/user"
+	ws "stranger-danger/internal/websocket"
 	"stranger-danger/router"
 
 	// Need to include postgres driver for database to work
@@ -24,6 +25,9 @@ func main() {
 	userService := user.NewService(userRepo)
 	userHandler := user.NewHandler(userService)
 
-	router.InitRouter(userHandler)
+	hub := ws.NewHub()
+	wsHandler := ws.NewHandler(hub)
+
+	router.InitRouter(userHandler, wsHandler)
 	router.Start("0.0.0.0:8080")
 }
