@@ -16,6 +16,16 @@ type CreateRoomReq struct {
 	Name string `json:"name"`
 }
 
+type RoomRes struct {
+	ID   string `json:"id"`
+	Name string `json:"name"`
+}
+
+type ClientRes struct {
+	ID       string `json:"id"`
+	Username string `json:"username"`
+}
+
 // This will make use of `origin` in the future
 func checkOrigin(origin string) bool {
 	return true
@@ -80,4 +90,36 @@ func (h *Handler) JoinRoom(c *gin.Context) {
 
 	go cl.writeMessage()
 	cl.readMessage(h.hub)
+}
+
+func (h *Handler) GetRooms(c *gin.Context) {
+	rooms := make([]RoomRes, 0)
+
+	for _, r := range h.hub.Rooms {
+		rooms = append(rooms, RoomRes{
+			ID:   r.ID,
+			Name: r.Name,
+		})
+	}
+
+	c.JSON(http.StatusOK, rooms)
+}
+
+func (h *Handler) GetClients(c *gin.Context) {
+	clients := make([]ClientRes, 0)
+	roomId := c.Param("roomId")
+	room, ok := h.hub.Rooms[roomId]
+	if !ok {
+		c.JSON(http.StatusOK, clients)
+		return
+	}
+
+	for _, cl := range room.Clients {
+		clients = append(clients, ClientRes{
+			ID:       cl.ID,
+			Username: cl.Username,
+		})
+	}
+
+	c.JSON(http.StatusOK, clients)
 }
