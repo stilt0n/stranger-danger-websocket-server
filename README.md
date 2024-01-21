@@ -1,3 +1,9 @@
+# About
+
+This is a basic websocket server that I did following a tutorial to get my bearings writing websocket servers in Go.
+I was originally planning on having this be the actual server for my eventual app, but I will likely completely rewrite
+it to make sure I understand what is going on well enough to troubleshoot issues.
+
 # Local Development
 
 I haven't fully automated local database development yet.
